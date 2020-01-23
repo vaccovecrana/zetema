@@ -1,6 +1,6 @@
 package io.vacco.dns;
 
-import io.vacco.dns.plugin.DAnswerMatchFilter;
+import io.vacco.dns.plugin.exclude.DAAnswerExclude;
 import io.vacco.ufn.UFn;
 import org.junit.Test;
 
@@ -19,10 +19,10 @@ public class DServerTest {
   }
 
   @Test
-  public void sTest1() {
-    DConfig cfg = DConfig.from("0.0.0.0", "8080", "9.9.9.9", "53");
+  public void sTest1() { //
+    DConfig cfg = DConfig.from("0.0.0.0", "8080", "9.9.9.9", "53", true);
     new DServer(cfg, new DProxy(cfg.upstreamAddress, cfg.upstreamPort)
-        .withPlugin(new DAnswerMatchFilter("amazon.com", "176.32.103.205"))
+        .withPlugin(DAAnswerExclude.from("amazon.com;176.32.103.205,205.251.242.103"))
     ).processRequest();
   }
 }
