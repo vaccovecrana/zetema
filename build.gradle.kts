@@ -1,5 +1,6 @@
 plugins {
   java
+  application
   id("com.palantir.graal") version "0.6.0-69-ga9559b9"
 }
 
@@ -9,7 +10,7 @@ repositories {
 }
 
 group = "io.vacco.zetema"
-version = "0.0.1"
+version = "0.1.0"
 
 java {
   sourceCompatibility = JavaVersion.VERSION_1_8
@@ -17,6 +18,7 @@ java {
 }
 
 dependencies {
+  implementation("org.yaml:snakeyaml:1.25")
   implementation("io.vacco.ufn:ufn:0.0.1")
   implementation("dnsjava:dnsjava:2.1.9")
   implementation("org.slf4j:slf4j-simple:1.7.30")
@@ -26,6 +28,7 @@ dependencies {
 graal {
   mainClass("io.vacco.dns.DServer")
   outputName("zetema")
+  option("-H:ReflectionConfigurationFiles=src/main/resources/reflect-config.json")
   option("-H:-UseServiceLoaderFeature")
   option("--no-fallback")
   option("--allow-incomplete-classpath")
@@ -33,3 +36,9 @@ graal {
   // option("--static")
 }
 
+application {
+  mainClassName = "io.vacco.dns.DServer"
+  applicationDefaultJvmArgs = listOf(
+      "-agentpath:/com.palantir.graal/19.2.0/graalvm-ce-19.2.0/Contents/Home/jre/lib/libnative-image-agent.dylib=config-output-dir=./src/main/resources"
+  )
+}

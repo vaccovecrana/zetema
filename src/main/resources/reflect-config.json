@@ -1,0 +1,41 @@
+[
+  {
+    "name":"io.vacco.dns.plugin.DPluginSlot",
+    "allDeclaredFields":true
+  },
+  {
+    "name":"io.vacco.dns.plugin.exclude.DAExcludeCfg",
+    "allDeclaredFields":true,
+    "methods":[{"name":"<init>","parameterTypes":[] }]
+  },
+  {
+    "name":"io.vacco.dns.plugin.forward.DForwardCfg",
+    "allDeclaredFields":true,
+    "methods":[{"name":"<init>","parameterTypes":[] }]
+  },
+  {
+    "name":"io.vacco.dns.plugin.log.DLogCfg",
+    "allDeclaredFields":true,
+    "methods":[{"name":"<init>","parameterTypes":[] }]
+  },
+  {
+    "name":"io.vacco.dns.schema.DListen",
+    "allDeclaredFields":true,
+    "methods":[{"name":"<init>","parameterTypes":[] }]
+  },
+  {
+    "name":"io.vacco.dns.schema.DPluginCfg",
+    "allDeclaredFields":true,
+    "methods":[{"name":"<init>","parameterTypes":[] }]
+  },
+  {
+    "name":"io.vacco.dns.schema.DProxyCfg",
+    "allDeclaredFields":true,
+    "methods":[{"name":"<init>","parameterTypes":[] }]
+  },
+  {
+    "name":"io.vacco.dns.schema.DZoneCfg",
+    "allDeclaredFields":true,
+    "methods":[{"name":"<init>","parameterTypes":[] }]
+  }
+]

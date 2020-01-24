@@ -1,4 +1,4 @@
-package io.vacco.dns;
+package io.vacco.dns.impl;
 
 import org.xbill.DNS.Message;
 import java.io.IOException;

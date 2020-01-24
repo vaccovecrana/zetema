@@ -1,9 +1,11 @@
 package io.vacco.dns;
 
-import io.vacco.dns.plugin.exclude.DAAnswerExclude;
+import io.vacco.dns.impl.DQuery;
+import io.vacco.dns.schema.DProxyCfg;
 import io.vacco.ufn.UFn;
 import org.junit.Test;
 
+import java.io.File;
 import java.net.InetAddress;
 
 public class DServerTest {
@@ -19,10 +21,12 @@ public class DServerTest {
   }
 
   @Test
-  public void sTest1() { //
-    DConfig cfg = DConfig.from("0.0.0.0", "8080", "9.9.9.9", "53", true);
-    new DServer(cfg, new DProxy(cfg.upstreamAddress, cfg.upstreamPort)
-        .withPlugin(DAAnswerExclude.from("amazon.com;176.32.103.205,205.251.242.103"))
-    ).processRequest();
+  public void sTest1() {
+    DProxyCfg cfg = DProxyCfg.load(new File("./src/test/resources/config.yml"));
+    DServer srv = new DServer(cfg);
+    DQuery q = UFn.tryRt(() -> srv.processRequest().get());
+    System.out.println(q.getRequest());
+    System.out.println(q.getResponse());
+    srv.respond(q);
   }
 }

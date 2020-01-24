@@ -1,0 +1,10 @@
+listen: {address: 0.0.0.0, port: 8080}
+zones:
+  - name: .
+    plugins:
+      forward: {k: 0, host: 9.9.9.9, port: 53}
+      log: {k: 1}
+  - name: amazon.com
+    plugins:
+      forward: {k: 0, host: 1.1.1.1, port: 53}
+      answerExclude: {k: 1, match: [205.251.242.103]}
