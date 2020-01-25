@@ -23,11 +23,10 @@ public class DServer {
   private final Map<String, List<DPlugin>> zoneIdx = new HashMap<>();
 
   public DServer(DProxyCfg cfg) {
-    this.receiver = UFn.tryRt(() -> new DatagramSocket(
-        cfg.listen.port, InetAddress.getByName(cfg.listen.address)
-    ));
-    cfg.zones.forEach(zCfg -> {
+    this.receiver = UFn.tryRt(() -> new DatagramSocket(cfg.listen.port, InetAddress.getByName(cfg.listen.address)));
+    UFn.tryRun(() -> receiver.setReuseAddress(true));
 
+    cfg.zones.forEach(zCfg -> {
       DPluginCfg pc = zCfg.plugins;
       List<DPluginSlot> slots = new ArrayList<>();
       if (pc.forward != null) { slots.add(pc.forward); }
