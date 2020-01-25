@@ -12,6 +12,7 @@ public class DProxyCfg {
 
   public DListen listen;
   public List<DZoneCfg> zones;
+  public boolean logAddresses;
 
   public static DProxyCfg load(Reader r) {
     Yaml y = new Yaml();

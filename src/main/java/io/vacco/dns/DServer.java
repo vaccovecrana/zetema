@@ -21,8 +21,10 @@ public class DServer {
 
   private final DatagramSocket receiver;
   private final Map<String, List<DPlugin>> zoneIdx = new HashMap<>();
+  private final DProxyCfg cfg;
 
   public DServer(DProxyCfg cfg) {
+    this.cfg = Objects.requireNonNull(cfg);
     this.receiver = UFn.tryRt(() -> new DatagramSocket(cfg.listen.port, InetAddress.getByName(cfg.listen.address)));
     UFn.tryRun(() -> receiver.setReuseAddress(true));
 
@@ -60,14 +62,19 @@ public class DServer {
   }
 
   public CompletableFuture<DQuery> processRequest() {
-    return processRequest(DPacket.from(receiver));
+    DPacket dp = DPacket.from(receiver);
+    if (cfg.logAddresses) {
+      log.info("{} -> {}", dp.packet.getSocketAddress(), receiver.getLocalSocketAddress());
+    }
+    return processRequest(dp);
   }
 
   public void respond(DQuery q) {
     UFn.tryRun(() -> {
       DPacket req = q.getRequest();
       DPacket res = q.getResponse();
-      receiver.send(res.markFor(req.packet.getSocketAddress()));
+      DatagramPacket out = res.markFor(req.packet.getSocketAddress());
+      receiver.send(out);
     });
   }
 

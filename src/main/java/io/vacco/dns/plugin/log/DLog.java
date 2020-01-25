@@ -22,20 +22,15 @@ public class DLog implements DPlugin {
 
   @Override
   public DQuery apply(DQuery query) {
-
     DPacket req = query.getRequest();
     DPacket res = query.getResponse();
 
-    log.info(req.packet.getAddress().toString());
-    log.info(req.packet.getSocketAddress().toString());
     if (logCfg.verbose) {
       log.info(req.message.toString());
     } else {
       log.info(req.message.getQuestion().toString());
     }
     if (res != null) {
-      log.info(res.packet.getAddress().toString());
-      log.info(res.packet.getSocketAddress().toString());
       if (logCfg.verbose) {
         log.info(res.message.toString());
       } else {
