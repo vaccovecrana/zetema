@@ -39,9 +39,9 @@ public class DServer {
       zoneIdx.put(zCfg.name, slots.stream().map(sl -> {
         if (sl instanceof DForwardCfg) return new DForward(zCfg);
         else if (sl instanceof DAExcludeCfg) return new DAExclude(zCfg);
-        else if (sl instanceof DLogCfg) return new DLog();
+        else if (sl instanceof DLogCfg) return new DLog(zCfg);
         throw new IllegalStateException(
-            String.format("Unknown plugin tyoe: [%s]", sl.getClass().getCanonicalName())
+            String.format("Unknown plugin type: [%s]", sl.getClass().getCanonicalName())
         );
       }).collect(Collectors.toList()));
     });
