@@ -1,6 +1,6 @@
 package io.vacco.dns.plugin.forward;
 
 public class DFwHost {
-  public String host;
+  public String ip;
   public int port;
 }

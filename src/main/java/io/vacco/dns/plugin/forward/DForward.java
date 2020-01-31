@@ -15,8 +15,8 @@ public class DForward implements DPlugin {
   private InetSocketAddress[] upstreams;
 
   public DForward(DZoneCfg zoneCfg) {
-    this.upstreams = Arrays.stream(zoneCfg.plugins.forward.hosts)
-        .map(fw -> new InetSocketAddress(fw.host, fw.port))
+    this.upstreams = Arrays.stream(zoneCfg.plugins.forward.to)
+        .map(fw -> new InetSocketAddress(fw.ip, fw.port))
         .toArray(InetSocketAddress[]::new);
   }
 
