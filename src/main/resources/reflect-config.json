@@ -14,6 +14,11 @@
     "methods":[{"name":"<init>","parameterTypes":[] }]
   },
   {
+    "name":"io.vacco.dns.plugin.forward.DFwHost",
+    "allDeclaredFields":true,
+    "methods":[{"name":"<init>","parameterTypes":[] }]
+  },
+  {
     "name":"io.vacco.dns.plugin.log.DLogCfg",
     "allDeclaredFields":true,
     "methods":[{"name":"<init>","parameterTypes":[] }]
