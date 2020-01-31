@@ -47,7 +47,7 @@ public class DServer {
       }).collect(Collectors.toList()));
     });
 
-    log.info("Zetema - Listening at [{}:{}]", cfg.listen.address, cfg.listen.port);
+    log.info("Zetema - Listening at [{}]", receiver.getLocalAddress());
   }
 
   public CompletableFuture<DQuery> processRequest(DPacket request) {
@@ -86,7 +86,11 @@ public class DServer {
 
   public static void main(String[] args) throws Exception {
     String configPath = System.getenv("ZETEMA_CONFIG");
-    configPath = configPath != null ? configPath : args[0];
+    if (configPath == null && args.length > 0) {
+      configPath = args[0];
+    } else {
+      throw new IllegalArgumentException("Missing configuration file.");
+    }
     new DServer(DProxyCfg.load(new FileReader(new File(configPath)))).run();
   }
 }
