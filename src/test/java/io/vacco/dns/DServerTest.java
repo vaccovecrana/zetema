@@ -1,7 +1,7 @@
 package io.vacco.dns;
 
 import io.vacco.dns.impl.DQuery;
-import io.vacco.dns.schema.DProxyCfg;
+import io.vacco.dns.schema.config.DProxy;
 import io.vacco.ufn.UFn;
 import org.junit.Test;
 
@@ -22,7 +22,7 @@ public class DServerTest {
 
   @Test
   public void sTest1() {
-    DProxyCfg cfg = DProxyCfg.load(new File("./src/test/resources/config.yml"));
+    DProxy cfg = DProxy.load(new File("./src/test/resources/config.yml"));
     DServer srv = new DServer(cfg);
     DQuery q = UFn.tryRt(() -> srv.processRequest().get());
     System.out.println(q.getRequest());

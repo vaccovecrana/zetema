@@ -9,3 +9,7 @@ zones:
     plugins:
       forward: {k: 0, to: [{ip: 1.1.1.1, port: 53}]}
       answerExclude: {k: 1, match: [205.251.242.103]}
+  - name: gopher.io
+    plugins:
+      aAnswer: {k: 0, with: [1.2.3.4, 5.6.7.8], ttl: 3600}
+      log: {k: 1, verbose: false}

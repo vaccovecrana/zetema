@@ -1,4 +1,4 @@
-package io.vacco.dns.schema;
+package io.vacco.dns.schema.config;
 
 import io.vacco.ufn.UFn;
 import org.yaml.snakeyaml.Yaml;
@@ -8,18 +8,18 @@ import java.io.FileReader;
 import java.io.Reader;
 import java.util.List;
 
-public class DProxyCfg {
+public class DProxy {
 
   public DListen listen;
-  public List<DZoneCfg> zones;
+  public List<DZone> zones;
   public boolean logAddresses;
 
-  public static DProxyCfg load(Reader r) {
+  public static DProxy load(Reader r) {
     Yaml y = new Yaml();
-    return UFn.tryRt(() -> y.loadAs(r, DProxyCfg.class));
+    return UFn.tryRt(() -> y.loadAs(r, DProxy.class));
   }
 
-  public static DProxyCfg load(File f) {
+  public static DProxy load(File f) {
     return UFn.tryRt(() -> load(new FileReader(f)));
   }
 }

@@ -2,22 +2,22 @@ package io.vacco.dns.plugin.exclude;
 
 import io.vacco.dns.impl.*;
 import io.vacco.dns.plugin.DPlugin;
-import io.vacco.dns.schema.DZoneCfg;
+import io.vacco.dns.schema.config.DZone;
 import org.xbill.DNS.*;
 import java.util.*;
 
 public class DAExclude implements DPlugin {
 
-  private final DZoneCfg zoneCfg;
+  private final DZone zoneCfg;
 
-  public DAExclude(DZoneCfg zoneCfg) {
+  public DAExclude(DZone zoneCfg) {
     this.zoneCfg = Objects.requireNonNull(zoneCfg);
   }
 
   @Override
   public DQuery apply(DQuery query) {
     List<ARecord> aRecords = new ArrayList<>();
-    DPacket response = query.getResponse();
+    DnsPacket response = query.getResponse();
     for (RRset sectionRRset : response.message.getSectionRRsets(Section.ANSWER)) {
       sectionRRset.rrs().forEachRemaining(r0 -> {
         if (r0 instanceof ARecord) {

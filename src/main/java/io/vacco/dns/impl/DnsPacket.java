@@ -1,10 +1,10 @@
 package io.vacco.dns.impl;
 
+import io.vacco.ufn.UFn;
 import org.xbill.DNS.Message;
-import java.io.IOException;
 import java.net.*;
 
-public class DPacket {
+public class DnsPacket {
 
   public static final int MAX_SIZE = 1024;
   public DatagramPacket packet;
@@ -19,14 +19,24 @@ public class DPacket {
     return packet;
   }
 
-  public static DPacket from(DatagramSocket socket) {
-    byte[] data = new byte[MAX_SIZE];
-    DPacket r = new DPacket();
-    r.packet = new DatagramPacket(data, 0, data.length);
-    try {
+  public static DnsPacket from(DatagramSocket socket) {
+    return UFn.tryRt(() -> {
+      DnsPacket r = fromBuffer(new byte[MAX_SIZE]);
       socket.receive(r.packet);
       r.message = new Message(r.packet.getData());
       return r;
-    } catch (IOException e) { throw new IllegalStateException(e); }
+    });
+  }
+
+  public static DnsPacket fromMessage(Message m) {
+    DnsPacket p = fromBuffer(m.toWire());
+    p.message = m;
+    return p;
+  }
+
+  public static DnsPacket fromBuffer(byte[] data) {
+    DnsPacket r = new DnsPacket();
+    r.packet = new DatagramPacket(data, 0, data.length);
+    return r;
   }
 }

@@ -4,17 +4,17 @@ import java.util.Objects;
 
 public class DQuery {
 
-  private DPacket request;
-  private DPacket response;
+  private DnsPacket request;
+  private DnsPacket response;
 
-  public DPacket getRequest() { return request; }
-  public DQuery withRequest(DPacket request) {
+  public DnsPacket getRequest() { return request; }
+  public DQuery withRequest(DnsPacket request) {
     this.request = Objects.requireNonNull(request);
     return this;
   }
 
-  public DPacket getResponse() { return response; }
-  public DQuery withReponse(DPacket response) {
+  public DnsPacket getResponse() { return response; }
+  public DQuery withReponse(DnsPacket response) {
     this.response = Objects.requireNonNull(response);
     return this;
   }
