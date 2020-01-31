@@ -86,10 +86,12 @@ public class DServer {
 
   public static void main(String[] args) throws Exception {
     String configPath = System.getenv("ZETEMA_CONFIG");
-    if (configPath == null && args.length > 0) {
-      configPath = args[0];
-    } else {
-      throw new IllegalArgumentException("Missing configuration file.");
+    if (configPath == null) {
+      if (args.length > 0) {
+        configPath = args[0];
+      } else {
+        throw new IllegalArgumentException("Missing configuration file.");
+      }
     }
     new DServer(DProxyCfg.load(new FileReader(new File(configPath)))).run();
   }
