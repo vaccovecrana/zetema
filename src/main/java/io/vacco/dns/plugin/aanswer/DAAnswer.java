@@ -25,6 +25,7 @@ public class DAAnswer implements DPlugin {
             answerCfg.ttl, InetAddress.getByName(ip)
         )), Section.ANSWER
     ));
+    ans.getHeader().setFlag(Flags.QR);
     query.withReponse(DnsPacket.fromMessage(ans));
     return query;
   }
