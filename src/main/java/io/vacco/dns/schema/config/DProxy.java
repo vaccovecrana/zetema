@@ -13,6 +13,7 @@ public class DProxy {
   public DListen listen;
   public List<DZone> zones;
   public boolean logAddresses;
+  public int threadPoolSize = -1;
 
   public static DProxy load(Reader r) {
     Yaml y = new Yaml();

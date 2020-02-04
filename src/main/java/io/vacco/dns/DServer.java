@@ -18,11 +18,13 @@ public class DServer {
   private final DatagramSocket receiver;
   private final DPluginIndex pluginIndex;
   private final DProxy proxyCfg;
+  private final ForkJoinPool taskPool;
 
   public DServer(DProxy cfg) {
     this.proxyCfg = Objects.requireNonNull(cfg);
     this.pluginIndex = new DPluginIndex(cfg);
     this.receiver = UFn.tryRt(() -> new DatagramSocket(cfg.listen.port, InetAddress.getByName(cfg.listen.address)));
+    this.taskPool = cfg.threadPoolSize > 0 ? new ForkJoinPool(cfg.threadPoolSize) : ForkJoinPool.commonPool();
     UFn.tryRun(() -> receiver.setReuseAddress(true));
     log.info("Zetema - Listening at [{}]", receiver.getLocalAddress());
   }
@@ -35,7 +37,7 @@ public class DServer {
       DQuery query = new DQuery().withRequest(request);
       for (DPlugin plugin : pluginIndex.get(chainMatch.get())) { query = plugin.apply(query); }
       return query;
-    }));
+    }), taskPool);
   }
 
   public CompletableFuture<DQuery> processRequest() {

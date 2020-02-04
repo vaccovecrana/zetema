@@ -1,5 +1,6 @@
 listen: {address: 0.0.0.0, port: 8080}
 logAddresses: true
+threadPoolSize: 2
 zones:
   - name: .
     plugins:
