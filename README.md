@@ -2,7 +2,9 @@
 
 [zetema](https://www.pagat.com/invented/zetema.html), a minimal DNS upstream proxy.
 
-dig @127.0.0.1 -p 8080 dit.qnoa.ch; dig @127.0.0.1 -p 8080 apple.com; dig @127.0.0.1 -p 8080 amazon.com; dig @127.0.0.1 -p 8080 facebook.com
+```
+dig @127.0.0.1 -p 8080 apple.com; dig @127.0.0.1 -p 8080 amazon.com; dig @127.0.0.1 -p 8080 facebook.com
+```
 
 ```
 export ZETEMA_LISTEN_ADDRESS=0.0.0.0
